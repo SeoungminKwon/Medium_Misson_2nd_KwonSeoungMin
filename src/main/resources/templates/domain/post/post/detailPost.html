@@ -1,0 +1,7 @@
+<div th:text="${id}"></div>
+
+
+<h1 th:text="${post.getTitle()}"></h1>
+<h1 th:text="${post.getContent()}"></h1>
+<a th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
+<a th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>

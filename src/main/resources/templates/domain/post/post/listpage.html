@@ -1,0 +1,24 @@
+<table width="100%">
+    <thead>
+    <tr>
+        <td>글 번호</td>
+        <td>작성자</td>
+        <td>제목</td>
+        <td>조회수</td>
+        <td>추천수</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="poster : ${allPost}">
+        <td th:text="${poster.id}"></td>
+        <td><a th:href="@{|/b/${poster.getAuthor()}|}" th:text="${poster.getAuthor()}"></a></td>
+        <td><a th:href="@{|/post/${poster.getId()}|}" th:text="${poster.getTitle()}"></a></td>
+        <td th:text="${poster.getHits() != null ? poster.getHits() : 0}" ></td>
+        <td th:text="${poster.getRecommendation() != null ? poster.getHits() : 0}" ></td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/post/write}" class="btn">질문 등록하기</a>
+</div>

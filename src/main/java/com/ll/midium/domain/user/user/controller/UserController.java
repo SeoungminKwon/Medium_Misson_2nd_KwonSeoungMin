@@ -51,8 +51,5 @@ public class UserController {
         return "domain/user/user/login_form";
     }
 
-//    @PostMapping("/member/login")
-//    private String login() {
-//
-//    }
+
 }

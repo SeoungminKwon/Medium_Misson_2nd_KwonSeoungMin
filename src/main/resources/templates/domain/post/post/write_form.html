@@ -1,0 +1,49 @@
+
+<div class="container my-3">
+    <div class="my-3 border-bottom">
+        <div>
+            <h4>회원가입</h4>
+        </div>
+    </div>
+    <form th:action="@{/post/write}" th:object="${postCreateForm}" method="post">
+<!--        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">-->
+<!--            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>-->
+<!--        </div>-->
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" th:field="*{title}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea type="password" th:field="*{content}" class="form-control" rows="10"></textarea>
+        </div>
+        <div>
+            <div>
+                <label for="checkbox1" >게시 O</label>
+                <input type="checkbox" id="checkbox1" name="isPublish" value="true"  checked onclick="toggleCheckbox('checkbox1')">
+            </div>
+            <div>
+                <label for="checkbox2" >게시 X</label>
+                <input type="checkbox" id="checkbox2" name="isPublish" value="false"  onclick="toggleCheckbox('checkbox2')">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+
+<script>
+    function toggleCheckbox(clickedCheckboxId) {
+        var checkboxes = document.getElementsByName("isPublish");
+
+        // 클릭된 체크박스가 체크된 경우 다른 체크박스 체크해제
+        if (document.getElementById(clickedCheckboxId).checked) {
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.id !== clickedCheckboxId) {
+                    checkbox.checked = false;
+                }
+            });
+        }
+    }
+</script>
+

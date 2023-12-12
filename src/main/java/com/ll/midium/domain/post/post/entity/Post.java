@@ -1,6 +1,5 @@
 package com.ll.midium.domain.post.post.entity;
 
-import com.ll.midium.domain.base.base.entity.BaseEntity;
 import com.ll.midium.domain.comment.coment.entity.Coment;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,14 +9,17 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Post extends BaseEntity {
+public class Post{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String name;
+    private String author;
+    private String title;
+    private String content;
     private Long hits;
     private Long recommendation;
+    private boolean isPublish;
+
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List< Coment > coments;
