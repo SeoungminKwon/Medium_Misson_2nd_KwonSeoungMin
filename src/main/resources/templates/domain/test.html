@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto POST</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<h1>Your Content Goes Here</h1>
+
+<script>
+    $(document).ready(function() {
+        var postId = 123; // 게시물 ID 또는 식별자
+
+        // 타이머 시작
+        var timer = setTimeout(function() {
+            // 10초 후에 실행되는 코드
+            console.log("User stayed for 10 seconds. Sending POST request...");
+
+            // POST 요청 보내기 (예: AJAX)
+            $.ajax({
+                type: 'POST',
+                url: '/post/' + postId + '/increaseHit',
+                data: {
+                    // 추가적인 데이터가 있다면 여기에 추가
+                },
+                success: function(response) {
+                    console.log("POST request sent successfully:", response);
+                },
+                error: function(error) {
+                    console.error("Error sending POST request:", error);
+                }
+            });
+
+        }, 10000); // 10초 (10000 밀리초)
+
+        // 사용자가 페이지를 떠나면 타이머 취소
+        $(window).on('beforeunload', function() {
+            clearTimeout(timer);
+        });
+    });
+</script>
+
+</body>
+</html>

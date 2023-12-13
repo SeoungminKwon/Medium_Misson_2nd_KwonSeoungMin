@@ -20,7 +20,7 @@ public class HomeController {
 
         List< Post > posters = postService.get30Posters();
         model.addAttribute("posters", posters);
-        return "domain/home/home/main";
+        return "redirect:/post/list";
     }
 
 

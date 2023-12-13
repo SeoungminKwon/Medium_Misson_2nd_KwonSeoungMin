@@ -6,8 +6,10 @@ import com.ll.midium.domain.post.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -67,6 +69,23 @@ public class PostService {
 
     public List<Post> findByAuthor(String username) {
         return postRepository.findByAuthorOrderByIdDesc(username);
+    }
+
+    public void increaseHit(Long id) {
+
+        Set<Long> viewedPosts = new HashSet<>();
+
+        Optional< Post > op = postRepository.findById(id);
+        if (!op.isPresent()) {
+            throw new RuntimeException("존재하지않는 post입니다.");
+        }
+        Post post = op.get();
+        if (post.getHits() == null) {
+            post.setHits(1L);
+        }else{
+            post.setHits(post.getHits()+1);
+        }
+        postRepository.save(post);
     }
 }
 

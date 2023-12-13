@@ -3,6 +3,7 @@ package com.ll.midium.domain.post.post.controller;
 import com.ll.midium.domain.post.post.PostCreateForm;
 import com.ll.midium.domain.post.post.entity.Post;
 import com.ll.midium.domain.post.post.service.PostService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Controller
@@ -41,8 +44,6 @@ public class PostController {
     public String postWrite(@Valid PostCreateForm postCreateForm, BindingResult bindingResult, Principal principal) {
 
         String name = principal.getName();
-
-
         if (bindingResult.hasErrors()) {
             return "domain/post/post/write_form";
         }
@@ -102,5 +103,21 @@ public class PostController {
         List< Post > myPostList = postService.findByAuthor(principal.getName());
         model.addAttribute("allPost", myPostList);
         return "domain/post/post/user_post_page";
+    }
+
+    @PostMapping("/post/{id}/increaseHit")
+    public String increaseHit(@PathVariable("id") Long id , HttpSession session) {
+        Set<Long>viewedPosts = (Set<Long>)session.getAttribute("viewedPosts");
+        if (viewedPosts == null) {
+            viewedPosts = new HashSet<>();
+            viewedPosts.add(id);
+            session.setAttribute("viewedPosts", viewedPosts);
+            postService.increaseHit(id);
+        }else{
+            if(!viewedPosts.contains(id)){
+                postService.increaseHit(id);
+            }
+        }
+        return "redirect:/post/list";
     }
 }

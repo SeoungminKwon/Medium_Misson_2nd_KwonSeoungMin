@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -35,6 +36,9 @@ public class SecurityConfig {
                                 csrf.ignoringRequestMatchers(
                                         "/h2-console/**"
                                 )
+                                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        //CSRF 토큰을 쿠키에 저장하고 관리하도록 설정
+                        //withHttpOnlyFalse()를 사용하면 JavaScript에서도 해당 쿠키에 접근할 수 있음.
                 )
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/member/login")

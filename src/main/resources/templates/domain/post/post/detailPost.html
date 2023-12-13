@@ -8,6 +8,46 @@
     <a sec:authorize="isAuthenticated()"
        th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
        th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+            var postId = /*[[${post.getId()}]]*/'';
+            var csrfToken = /*[[${_csrf.token}]]*/'';
+            var csrfHeader = /*[[${_csrf.headerName}]]*/'';
+
+
+            // 타이머 시작
+            var timer = setTimeout(function() {
+                console.log("User stayed for 10 seconds. Sending POST request...");
+
+                // POST 요청 보내기 (예: AJAX)
+                $.ajax({
+                    type: 'POST',
+                    url: '/post/' + postId + '/increaseHit',
+                    data: {
+                        // 추가적인 데이터가 있다면 여기에 추가
+                    },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(csrfHeader, csrfToken);
+                    },
+                    success: function(response) {
+                        console.log("POST request sent successfully:", response);
+                    },
+                    error: function(error) {
+                        console.error("Error sending POST request:", error);
+                    }
+                });
+
+            }, 10000); // 10초 (10000 밀리초)
+
+            // 사용자가 페이지를 떠나면 타이머 취소
+            $(window).on('beforeunload', function() {
+                clearTimeout(timer);
+            });
+        });
+        /*]]>*/
+    </script>
 </div>
 </html>
 

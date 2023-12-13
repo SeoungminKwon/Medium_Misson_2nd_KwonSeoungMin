@@ -20,7 +20,6 @@ public class Post{
     private Long recommendation;
     private boolean isPublish;
 
-
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List< Coment > coments;
 
