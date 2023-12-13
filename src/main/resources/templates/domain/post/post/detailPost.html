@@ -1,7 +1,14 @@
-<div th:text="${id}"></div>
+<html layout:decorate="~{/global/layout}">
+<div layout:fragment="content">
+    <h1 th:text="${post.getTitle()}"></h1>
+    <h1 th:text="${post.getContent()}"></h1>
+    <a sec:authorize="isAuthenticated()"
+       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
+       th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
+    <a sec:authorize="isAuthenticated()"
+       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
+       th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>
+</div>
+</html>
 
 
-<h1 th:text="${post.getTitle()}"></h1>
-<h1 th:text="${post.getContent()}"></h1>
-<a th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
-<a th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>

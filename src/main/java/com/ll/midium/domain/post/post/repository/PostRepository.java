@@ -14,4 +14,6 @@ public interface PostRepository extends JpaRepository< Post, Long> {
 
     @Query(value = "select p from Post p where p.isPublish = true order by p.id desc")
     List< Post> findAllByOrderByIdDesc();
+
+    List< Post> findByAuthorOrderByIdDesc(String username);
 }

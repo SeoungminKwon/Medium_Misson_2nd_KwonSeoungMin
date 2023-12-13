@@ -29,11 +29,13 @@ public class PostService {
 
     }
 
-    public void createPost(PostCreateForm postCreateForm) {
+
+    public void createPost(PostCreateForm postCreateForm, String name) {
         Post post = new Post();
         post.setTitle(postCreateForm.getTitle());
         post.setContent(postCreateForm.getContent());
         post.setPublish(postCreateForm.getIsPublish());
+        post.setAuthor(name);
         postRepository.save(post);
     }
 
@@ -61,6 +63,10 @@ public class PostService {
         }
         Post post = op.get();
         postRepository.delete(post);
+    }
+
+    public List<Post> findByAuthor(String username) {
+        return postRepository.findByAuthorOrderByIdDesc(username);
     }
 }
 

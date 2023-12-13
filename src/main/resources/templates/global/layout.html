@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/resource/global.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Medium</title>
+</head>
+<body>
+<a th:href="@{/}">HOME</a>
+<a sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/post/myList}">My Post</a>
+<a sec:authorize="isAnonymous()" th:href="@{/member/join}">회원가입</a>
+
+<th:block layout:fragment="content"></th:block>
+
+</body>
+</html>

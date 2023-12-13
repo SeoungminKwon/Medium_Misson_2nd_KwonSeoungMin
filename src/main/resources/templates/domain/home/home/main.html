@@ -1,5 +1,8 @@
-<table width="100%">
-    <thead>
+
+<html layout:decorate="~{/global/layout}">
+<div layout:fragment="content">
+    <table width="100%">
+        <thead>
         <tr>
             <th>글 번호</th>
             <th>작성자</th>
@@ -7,8 +10,8 @@
             <th>조회수</th>
             <th>추천수</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <tr th:each="poster : ${posters}">
             <th th:text="${poster.id}"></th>
             <th th:text="${poster.getAuthor()}" ></th>
@@ -16,5 +19,7 @@
             <th th:text="${poster.getHits() != null ? poster.getHits() : 0}" ></th>
             <th th:text="${poster.getRecommendation() != null ? poster.getHits() : 0}" ></th>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+</html>
