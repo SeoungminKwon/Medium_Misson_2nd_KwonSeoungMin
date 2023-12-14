@@ -1,11 +1,11 @@
 <html layout:decorate="~{/global/layout}">
-<div layout:fragment="content">
+<div layout:fragment="content" class="overflow-x-auto">
 
     <div>
-        <a sec:authorize="isAuthenticated()" th:href="@{/post/write}" >질문 등록하기</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/post/write}" class="btn btn-ghost">질문 등록하기</a>
     </div>
 
-    <table width="100%">
+    <table class="table">
         <thead>
         <tr>
             <td>글 번호</td>
@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="poster : ${allPost}">
+        <tr th:each="poster : ${allPost}" class="hover">
             <td th:text="${poster.id}"></td>
             <td><a th:href="@{|/b/${poster.getAuthor()}|}" th:text="${poster.getAuthor()}"></a></td>
             <td><a th:href="@{|/post/${poster.getId()}|}" th:text="${poster.getTitle()}"></a></td>

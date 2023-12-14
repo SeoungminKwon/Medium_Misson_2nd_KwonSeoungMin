@@ -1,20 +1,21 @@
 <html layout:decorate="~{/global/layout}">
-<div layout:fragment="content">
-    <div class="container my-3">
+<div layout:fragment="content" class="ml-5">
+    <div class="container py-5">
         <div class="my-3 border-bottom">
             <div>
-                <h4>글 작성</h4>
+                <h4 >글 작성</h4>
             </div>
         </div>
         <form th:action="@{/post/write}" th:object="${postCreateForm}" method="post">
             <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
-                <input type="text" th:field="*{title}" class="form-control">
+                <input th:field="*{title}" type="text" placeholder="제목 입력해주세요" class="input-bordered w-full max-w-xs form-control" />
+<!--                <input type="text" th:field="*{title}" class="form-control">-->
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
-                <textarea type="password" th:field="*{content}" class="form-control" rows="10"></textarea>
+                <textarea type="password" placeholder="내용 입력해주세요" th:field="*{content}" class="form-control" rows="10"></textarea>
             </div>
             <div>
                 <div>

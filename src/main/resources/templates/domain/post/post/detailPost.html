@@ -1,31 +1,39 @@
 <html layout:decorate="~{/global/layout}">
-<div layout:fragment="content">
+<div layout:fragment="content" class="ml-5">
     <div>
         <h1 th:text="${post.getTitle()}"></h1>
         <h3 th:text="${post.getContent()}"></h3>
         <a sec:authorize="isAuthenticated()"
            th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
-           th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
+           th:href="@{|/post/${post.getId()}/modify|}" class="btn btn-ghost">글 수정</a>
         <a sec:authorize="isAuthenticated()"
            th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
-           th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>
+           th:href="@{|/post/${post.getId()}/delete|}" class="btn btn-ghost">글 삭제</a>
     </div>
 
 
-    <h5 th:text="|${#lists.size(post.getComments())}개의 답변이 있습니다.|"></h5>
-    <div>
+    <h5 class="mt-5" th:text="|${#lists.size(post.getComments())}개의 답변이 있습니다.|"></h5>
+    <div class="mt-5">
 
-        <div th:each="comment : ${post.getComments()}">
-            <div th:text="${comment.getContent()}"></div>
-
+        <div class="flex" th:each="comment : ${post.getComments()}">
+            <div class="flex-1 w-1/5" th:text="${comment.getContent()}"></div>
+            <div class="flex-1 w-1/5" th:text="'글쓴이  :  '"></div>
+            <div class="flex-1 w-1/5" th:text="${comment.getAuthor()}" ></div>
+            <a class="flex-1 w-1/5 btn-ghost" >수정</a>
+            <a class="flex-1 w-1/5 btn-ghost" >삭제</a>
+            <div class="flex-1 w-1/5"></div>
+            <div class="flex-1 w-1/5"></div>
+            <div class="flex-1 w-1/5"></div>
+            <div class="flex-1 w-1/5"></div>
+            <div class="flex-1 w-1/5"></div>
         </div>
-
+    </div>
     <div sec:authorize="isAuthenticated()" class="flex">
         <form  th:action="@{|/post/${post.id}/comment/write|}"  th:object="${commentCreateForm}" method="post">
             <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
-                <textarea type="password" th:field="*{body}" class="form-control" rows="5"></textarea>
+                <textarea class="textarea textarea-bordered h-24 form-control" type="password" th:field="*{body}"  rows="5"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">댓글 작성</button>
         </form>
@@ -70,6 +78,7 @@
         });
         /*]]>*/
     </script>
+    </div>
 </div>
 </html>
 
