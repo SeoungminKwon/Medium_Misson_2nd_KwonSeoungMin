@@ -1,13 +1,35 @@
 <html layout:decorate="~{/global/layout}">
 <div layout:fragment="content">
-    <h1 th:text="${post.getTitle()}"></h1>
-    <h1 th:text="${post.getContent()}"></h1>
-    <a sec:authorize="isAuthenticated()"
-       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
-       th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
-    <a sec:authorize="isAuthenticated()"
-       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
-       th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>
+    <div>
+        <h1 th:text="${post.getTitle()}"></h1>
+        <h3 th:text="${post.getContent()}"></h3>
+        <a sec:authorize="isAuthenticated()"
+           th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
+           th:href="@{|/post/${post.getId()}/modify|}">글 수정</a>
+        <a sec:authorize="isAuthenticated()"
+           th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author}"
+           th:href="@{|/post/${post.getId()}/delete|}">글 삭제</a>
+    </div>
+
+
+    <h5 th:text="|${#lists.size(post.getComments())}개의 답변이 있습니다.|"></h5>
+    <div>
+
+        <div th:each="comment : ${post.getComments()}">
+            <div th:text="${comment.getContent()}"></div>
+
+        </div>
+
+    <div sec:authorize="isAuthenticated()" class="flex">
+        <form  th:action="@{|/post/${post.id}/comment/write|}"  th:object="${commentCreateForm}" method="post">
+            <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <textarea type="password" th:field="*{body}" class="form-control" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">댓글 작성</button>
+        </form>
+    </div>
 
     <script th:inline="javascript">
         /*<![CDATA[*/

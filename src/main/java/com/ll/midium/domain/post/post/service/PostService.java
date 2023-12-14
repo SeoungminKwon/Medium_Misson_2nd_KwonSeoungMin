@@ -87,5 +87,10 @@ public class PostService {
         }
         postRepository.save(post);
     }
+
+    public void savePost(Post post){
+        postRepository.save(post);
+
+    }
 }
 

@@ -10,7 +10,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @Setter
 @Entity
-public class Coment{
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,5 +19,7 @@ public class Coment{
     @JoinColumn(name = "POST_ID")
     private Post post;
 
+    private String author;
+    private String content;
 
 }

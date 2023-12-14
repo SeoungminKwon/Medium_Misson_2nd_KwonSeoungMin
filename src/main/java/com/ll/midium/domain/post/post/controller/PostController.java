@@ -1,5 +1,6 @@
 package com.ll.midium.domain.post.post.controller;
 
+import com.ll.midium.domain.comment.coment.CommentCreateForm;
 import com.ll.midium.domain.post.post.PostCreateForm;
 import com.ll.midium.domain.post.post.entity.Post;
 import com.ll.midium.domain.post.post.service.PostService;
@@ -55,6 +56,8 @@ public class PostController {
     public String detailPost(@PathVariable("id") Long id, Model model) {
         Post findPost = postService.findById(id);
         model.addAttribute("post", findPost);
+        CommentCreateForm commentCreateForm = new CommentCreateForm();
+        model.addAttribute("commentCreateForm", commentCreateForm);
 
         return "domain/post/post/detailPost";
     }
@@ -118,6 +121,6 @@ public class PostController {
                 postService.increaseHit(id);
             }
         }
-        return "redirect:/post/list";
+        return "redirect:/";
     }
 }

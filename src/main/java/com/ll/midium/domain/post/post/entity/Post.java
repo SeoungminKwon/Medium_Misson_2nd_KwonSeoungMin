@@ -1,6 +1,6 @@
 package com.ll.midium.domain.post.post.entity;
 
-import com.ll.midium.domain.comment.coment.entity.Coment;
+import com.ll.midium.domain.comment.coment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +21,6 @@ public class Post{
     private boolean isPublish;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List< Coment > coments;
+    private List< Comment > comments;
 
 }
