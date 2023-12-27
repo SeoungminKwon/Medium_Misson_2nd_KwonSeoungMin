@@ -13,9 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 @Transactional
 class HomeController {
 
-    @DisplayName("t1 ")
+    @DisplayName("t1")
     @Test
     void t1() {
-
     }
 }
