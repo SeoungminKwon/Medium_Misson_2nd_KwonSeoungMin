@@ -1,7 +1,7 @@
 
 <html layout:decorate="~{/global/layout}">
-<div layout:fragment="content">
-    <table width="100%">
+<div layout:fragment="content" class="overflow-x-auto">
+    <table class="table">
         <thead>
         <tr>
             <th>글 번호</th>
@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="poster : ${posters}">
+        <tr th:each="poster : ${posters}" class="hover">
             <th th:text="${poster.id}"></th>
             <th th:text="${poster.getAuthor()}" ></th>
             <th th:text="${poster.getTitle()}" ></th>
