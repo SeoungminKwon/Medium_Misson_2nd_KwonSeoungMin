@@ -1,14 +1,7 @@
-<html layout:decorate="~{/global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="overflow-x-auto">
 
-<div class="navbar bg-base-100">
-    <a class="btn btn-ghost text-xl" th:href="@{/}">HOME</a>
-    <a class="btn btn-ghost text-xl" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-    <a class="btn btn-ghost text-xl" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-    <a class="btn btn-ghost text-xl" sec:authorize="isAuthenticated()" th:href="@{/post/myList}">My Post</a>
-    <a class="btn btn-ghost text-xl" sec:authorize="isAnonymous()" th:href="@{/member/join}">회원가입</a>
 
-</div>
 
     <div>
         <a sec:authorize="isAuthenticated()" th:href="@{/post/write}" class="btn btn-ghost">질문 등록하기</a>
@@ -34,5 +27,5 @@
         </tr>
         </tbody>
     </table>
-<!--</div>-->
-<!--</html>-->
+</div>
+</html>
