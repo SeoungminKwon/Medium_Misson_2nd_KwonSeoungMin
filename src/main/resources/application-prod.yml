@@ -2,7 +2,7 @@ server:
   shutdown: graceful
 spring:
   thymeleaf:
-    prefix: classpath:/templates
+    prefix: classpath:/templates/
     suffix: .html
   servlet:
     multipart:
