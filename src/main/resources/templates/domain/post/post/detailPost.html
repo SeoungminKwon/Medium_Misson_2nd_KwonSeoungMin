@@ -30,7 +30,7 @@
     </div>
     <div sec:authorize="isAuthenticated()" class="flex">
         <form  th:action="@{|/post/${post.id}/comment/write|}"  th:object="${commentCreateForm}" method="post">
-            <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
+            <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
                 <textarea class="textarea textarea-bordered h-24 form-control" type="password" th:field="*{body}"  rows="5"></textarea>

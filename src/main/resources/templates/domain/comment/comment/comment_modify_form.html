@@ -7,7 +7,7 @@
             </div>
         </div>
         <form th:action="@{|/post/${post.id}/comment/${comment.id}/modify|}" th:object="${comment}" method="post">
-            <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
+            <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
                 <label for="content" class="form-label">내용</label>
                 <textarea type="password" th:field="*{content}" class="form-control" rows="10"></textarea>

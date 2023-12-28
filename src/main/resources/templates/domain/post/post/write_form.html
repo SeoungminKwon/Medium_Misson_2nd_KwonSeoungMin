@@ -7,7 +7,7 @@
             </div>
         </div>
         <form th:action="@{/post/write}" th:object="${postCreateForm}" method="post">
-            <div th:replace="~{/global/form_error :: formErrorsFragment}"></div>
+            <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
                 <input th:field="*{title}" type="text" placeholder="제목 입력해주세요" class="input-bordered w-full max-w-xs form-control" />
