@@ -33,11 +33,8 @@ public class PostService {
 
 
     public void createPost(PostCreateForm postCreateForm, String name) {
-        Post post = new Post();
-        post.setTitle(postCreateForm.getTitle());
-        post.setContent(postCreateForm.getContent());
+        Post post = new Post(name, postCreateForm.getTitle(), postCreateForm.getContent());
         post.setPublish(postCreateForm.getIsPublish());
-        post.setAuthor(name);
         post.setPaid(postCreateForm.getIsPaid());
         postRepository.save(post);
     }
