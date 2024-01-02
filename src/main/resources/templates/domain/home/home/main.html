@@ -12,11 +12,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="poster : ${posters}" class="hover">
-            <th th:text="${poster.id}"></th>
-            <th th:text="${poster.getAuthor()}" ></th>
-            <th th:text="${poster.getTitle()}" ></th>
-            <th th:text="${poster.getHits() != null ? poster.getHits() : 0}" ></th>
+        <tr th:each="post : ${posters}" class="hover">
+            <th th:text="${post.id}"></th>
+            <th th:text="${post.getAuthor()}" ></th>
+            <th th:text="${post.getTitle()}" ></th>
+            <th th:text="${post.getHits() != null ? poster.getHits() : 0}" ></th>
             <th th:text="${poster.getRecommendation() != null ? poster.getHits() : 0}" ></th>
         </tr>
         </tbody>

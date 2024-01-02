@@ -38,6 +38,7 @@ public class PostService {
         post.setContent(postCreateForm.getContent());
         post.setPublish(postCreateForm.getIsPublish());
         post.setAuthor(name);
+        post.setPaid(postCreateForm.getIsPaid());
         postRepository.save(post);
     }
 

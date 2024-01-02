@@ -20,8 +20,11 @@
         <tbody>
         <tr th:each="poster : ${allPost}" class="hover">
             <td th:text="${poster.id}"></td>
-            <td><a th:href="@{|/b/${poster.getAuthor()}|}" th:text="${poster.getAuthor()}"></a></td>
-            <td><a th:href="@{|/post/${poster.getId()}|}" th:text="${poster.getTitle()}"></a></td>
+            <td><a class="link" th:href="@{|/b/${poster.getAuthor()}|}" th:text="${poster.getAuthor()}"></a></td>
+            <td>
+                <a class="link" th:href="@{|/post/${poster.getId()}|}" th:text="${poster.getTitle()}"></a>
+                <div class="badge badge-secondary" th:if="${poster.isPaid()}">유료글</div>
+            </td>
             <td th:text="${poster.getHits() != null ? poster.getHits() : 0}" ></td>
             <td th:text="${poster.getRecommendation() != null ? poster.getHits() : 0}" ></td>
         </tr>

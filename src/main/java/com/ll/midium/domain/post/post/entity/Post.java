@@ -19,6 +19,7 @@ public class Post{
     private Long hits;
     private Long recommendation;
     private boolean isPublish;
+    private boolean isPaid;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List< Comment > comments;

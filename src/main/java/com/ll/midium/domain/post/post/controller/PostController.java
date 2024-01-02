@@ -4,6 +4,8 @@ import com.ll.midium.domain.comment.coment.CommentCreateForm;
 import com.ll.midium.domain.post.post.PostCreateForm;
 import com.ll.midium.domain.post.post.entity.Post;
 import com.ll.midium.domain.post.post.service.PostService;
+import com.ll.midium.domain.user.user.entity.SiteUser;
+import com.ll.midium.domain.user.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.Set;
 public class PostController {
 
     private final PostService postService;
+    private final UserService userService;
 
     @GetMapping("/post/list")
     public String showList(Model model) {
@@ -41,7 +44,6 @@ public class PostController {
     }
 
     @PostMapping("/post/write")
-    @PreAuthorize("isAuthenticated()")
     public String postWrite(@Valid PostCreateForm postCreateForm, BindingResult bindingResult, Principal principal) {
 
         String name = principal.getName();
@@ -53,11 +55,16 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public String detailPost(@PathVariable("id") Long id, Model model) {
+    public String detailPost(@PathVariable("id") Long id, Model model, Principal principal) {
         Post findPost = postService.findById(id);
+        SiteUser user = userService.findByUsername(principal.getName());
+        if(findPost.isPaid() && user.isPaid() == false){
+            findPost.setContent("이 글은 유료멤버십 전용 입니다.");
+        }
         model.addAttribute("post", findPost);
         CommentCreateForm commentCreateForm = new CommentCreateForm();
         model.addAttribute("commentCreateForm", commentCreateForm);
+
 
         return "domain/post/post/detailPost";
     }
@@ -86,6 +93,7 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     public String deletePost(@PathVariable("id") Long id, Principal principal){
         Post findPost = postService.findById(id);
+
         if(!findPost.getAuthor().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이없습니다.");
         }

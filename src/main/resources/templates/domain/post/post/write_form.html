@@ -18,13 +18,27 @@
                 <textarea type="password" placeholder="내용 입력해주세요" th:field="*{content}" class="form-control" rows="10"></textarea>
             </div>
             <div>
-                <div>
-                    <label for="checkbox1" >게시 O</label>
-                    <input type="checkbox" id="checkbox1" name="isPublish" value="true"  checked onclick="toggleCheckbox('checkbox1')">
+<!--                <div>-->
+<!--                    <label for="checkbox1" >게시 O</label>-->
+<!--                    <input type="checkbox" id="checkbox1" name="isPublish" value="true"  onclick="toggleCheckbox('checkbox1')">-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <label for="checkbox2" >게시 X</label>-->
+<!--                    <input type="checkbox" id="checkbox2" name="isPublish" value="false" checked  onclick="toggleCheckbox('checkbox2')">-->
+<!--                </div>-->
+
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                        <span class="label-text">공개 글</span>
+                        <input th:field="*{isPublish}" type="checkbox" class="toggle" name="isPublish" checked />
+                    </label>
                 </div>
-                <div>
-                    <label for="checkbox2" >게시 X</label>
-                    <input type="checkbox" id="checkbox2" name="isPublish" value="false"  onclick="toggleCheckbox('checkbox2')">
+
+                <div class="form-control">
+                    <label class="label cursor-pointer">
+                        <span class="label-text">유료 글</span>
+                        <input th:field="*{isPaid}" type="checkbox" class="toggle" name="isPaid" checked/>
+                    </label>
                 </div>
             </div>
 
@@ -33,6 +47,7 @@
     </div>
 
     <script>
+
         function toggleCheckbox(clickedCheckboxId) {
             var checkboxes = document.getElementsByName("isPublish");
 

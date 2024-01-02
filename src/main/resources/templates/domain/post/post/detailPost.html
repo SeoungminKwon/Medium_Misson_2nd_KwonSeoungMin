@@ -1,12 +1,15 @@
 <html layout:decorate="~{global/layout}">
 <div layout:fragment="content" class="ml-5">
     <div>
-        <div class="card w-96 bg-base-100 shadow-xl bg-base-200">
-            <div class="card-body">
-                <p th:text="|글 내용 : ${post.getContent()}|"></p>
-                <h2 class="card-title" th:text="|작성자 : ${post.getTitle()}|"></h2>
+        <div>
+            <div class="card w-96 bg-base-100 shadow-xl bg-base-200">
+                <div class="card-body">
+                    <h2  class="card-title" th:text="${post.getTitle()}"></h2>
+                    <p th:text="${post.getContent()}"></p>
+                </div>
             </div>
         </div>
+
 
         <div>
             <a sec:authorize="isAuthenticated()"
@@ -31,7 +34,7 @@
                     </div>
                 </div>
                 <div class="chat-header" th:text="${comment.getAuthor()}">
-                    <time class="text-xs opacity-50">12:45</time>
+                    <time class="text-xs opacity-50"></time>
                 </div>
                 <div class="chat-bubble" th:text="${comment.getContent()}"></div>
                 <div class="chat-footer opacity-50">

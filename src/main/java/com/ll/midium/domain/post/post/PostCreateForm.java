@@ -14,4 +14,5 @@ public class PostCreateForm {
     private String content;
 
     private Boolean isPublish;
+    private Boolean isPaid;
 }
