@@ -42,29 +42,28 @@
                 <div class="chat-footer opacity-50">
                 </div>
             </div>
-
             <div>
                 <button class="btn btn-ghost"
-                        th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author}"
+                        th:if="${#authentication.getPrincipal() != 'anonymousUser' and comment.author != null and #authentication.getPrincipal().getUsername() != null and #authentication.getPrincipal().getUsername() == comment.author}"
+
                         th:href="|/post/${post.getId()}/comment/${comment.getId()}/modify|">수정
                 </button>
                 <button class="btn btn-ghost"
-                        th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author}"
+                        th:if="${#authentication.getPrincipal() != 'anonymousUser' and comment.author != null and #authentication.getPrincipal().getUsername() != null and #authentication.getPrincipal().getUsername() == comment.author}"
                         th:href="|/post/${post.getId()}/comment/${comment.getId()}/delete|">삭제
                 </button>
-
             </div>
 
         </div>
     </div>
-    <div sec:authorize="isAuthenticated()" class="flex">
+    <div class="flex">
         <form  th:action="@{|/post/${post.id}/comment/write|}"  th:object="${commentCreateForm}" method="post">
             <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
             <div class="mb-3">
-                <label for="content" class="form-label">내용</label>
-                <textarea class="textarea textarea-bordered h-24 form-control" type="password" th:field="*{body}"  rows="5"></textarea>
+                <label sec:authorize="isAuthenticated()" for="content" class="form-label">내용</label>
+                <textarea sec:authorize="isAuthenticated()" class="textarea textarea-bordered h-24 form-control" type="password" th:field="*{body}"  rows="5"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">댓글 작성</button>
+            <button sec:authorize="isAuthenticated()" type="submit" class="btn btn-primary">댓글 작성</button>
         </form>
     </div>
 
