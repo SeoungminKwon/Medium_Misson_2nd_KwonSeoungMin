@@ -5,11 +5,15 @@
     <link rel="stylesheet" href="/resource/global.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+
     <title>Medium</title>
+
 </head>
 <body>
-<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdn.tailwindcss.com"></script>
+
 
 <div class="flex flex-col gap-5 mt-5 my-5">
     <div class="navbar bg-base-100">
@@ -26,16 +30,5 @@
     </div>
 
 </div>
-<!--<div class="flex gap-10">-->
-<!--    <a th:href="@{/}">HOME</a>-->
-<!--    <a class="btn" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>-->
-<!--    <a sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>-->
-<!--    <a sec:authorize="isAuthenticated()" th:href="@{/post/myList}">My Post</a>-->
-<!--    <a sec:authorize="isAnonymous()" th:href="@{/member/join}">회원가입</a>-->
-
-<!--</div>-->
-
-<!--<th:block layout:fragment="content"></th:block>-->
-
 </body>
 </html>

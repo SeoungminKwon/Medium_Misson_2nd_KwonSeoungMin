@@ -1,0 +1,29 @@
+<!-- 토스트 UI 에디터 불러오기 시작 -->
+<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<!-- 토스트 UI 에디터 불러오기 끝 -->
+
+<!-- 에디터 시작 -->
+<h1>에디터 1</h1>
+<div id="editor-1"></div>
+
+<h1>에디터 2</h1>
+<div id="editor-2"></div>
+<!-- 에디터 끝 -->
+
+
+<script>
+    // 에디터 클래스를 사용하기 쉽도록 변경(여기서 `쉽다`는 뜻은 `짧게 쓸 수 있다`라는 뜻)
+    const Editor = toastui.Editor;
+
+    const editor1 = new Editor({
+        el: document.querySelector("#editor-1"),
+        initialValue: "기본값"
+    });
+
+    const editor2 = new Editor({
+        el: document.querySelector("#editor-2"),
+        previewStyle: "vertical"
+    });
+
+</script>

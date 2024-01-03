@@ -1,67 +1,61 @@
-<html layout:decorate="~{global/layout}">
-<div layout:fragment="content" class="ml-5">
-    <div class="container py-5">
-        <div class="my-3 border-bottom">
-            <div>
-                <h4 >글 작성</h4>
+<html layout:decorate="~{global/layout_markdown}">
+<div layout:fragment="content" >
+    <div class=" mx-5" >
+        <div class="mockup-browser border border-base-300">
+            <div class="mockup-browser-toolbar">
+                <div class="input border border-base-300">https://medium.bdksm.com</div>
+            </div>
+            <div class="m-3">
+                <form th:action="@{/post/write}" th:object="${postCreateForm}" method="post" onsubmit="importContent()">
+                    <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
+                    <div class="mb-3 flex flex-col">
+                        <label for="title" class="text-2xl font-bold">제목</label>
+                        <input th:field="*{title}" type="text" placeholder="제목 입력해주세요" class="input input-bordered w-full max-w-xs" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="text-2xl font-bold">내용</label>
+                        <div id="editor"></div>
+
+
+                        <textarea  placeholder="내용 입력해주세요" th:field="*{content}" class="hidden" rows="10"></textarea>
+                    </div>
+                    <div>
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="text-xl font-bold">공개 글</span>
+                                <input th:field="*{isPublish}" type="checkbox" class="toggle" name="isPublish" checked />
+                            </label>
+                        </div>
+
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="text-xl font-bold">유료 글</span>
+                                <input th:field="*{isPaid}" type="checkbox" class="toggle" name="isPaid" checked/>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">저장하기</button>
+                </form>
             </div>
         </div>
-        <form th:action="@{/post/write}" th:object="${postCreateForm}" method="post">
-            <div th:replace="~{global/form_error :: formErrorsFragment}"></div>
-            <div class="mb-3">
-                <label for="title" class="form-label">제목</label>
-                <input th:field="*{title}" type="text" placeholder="제목 입력해주세요" class="input-bordered w-full max-w-xs form-control" />
-<!--                <input type="text" th:field="*{title}" class="form-control">-->
-            </div>
-            <div class="mb-3">
-                <label for="content" class="form-label">내용</label>
-                <textarea type="password" placeholder="내용 입력해주세요" th:field="*{content}" class="form-control" rows="10"></textarea>
-            </div>
-            <div>
-<!--                <div>-->
-<!--                    <label for="checkbox1" >게시 O</label>-->
-<!--                    <input type="checkbox" id="checkbox1" name="isPublish" value="true"  onclick="toggleCheckbox('checkbox1')">-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <label for="checkbox2" >게시 X</label>-->
-<!--                    <input type="checkbox" id="checkbox2" name="isPublish" value="false" checked  onclick="toggleCheckbox('checkbox2')">-->
-<!--                </div>-->
 
-                <div class="form-control">
-                    <label class="label cursor-pointer">
-                        <span class="label-text">공개 글</span>
-                        <input th:field="*{isPublish}" type="checkbox" class="toggle" name="isPublish" checked />
-                    </label>
-                </div>
-
-                <div class="form-control">
-                    <label class="label cursor-pointer">
-                        <span class="label-text">유료 글</span>
-                        <input th:field="*{isPaid}" type="checkbox" class="toggle" name="isPaid" checked/>
-                    </label>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">저장하기</button>
-        </form>
     </div>
 
     <script>
+        const Editor = toastui.Editor;
 
-        function toggleCheckbox(clickedCheckboxId) {
-            var checkboxes = document.getElementsByName("isPublish");
-
-            // 클릭된 체크박스가 체크된 경우 다른 체크박스 체크해제
-            if (document.getElementById(clickedCheckboxId).checked) {
-                checkboxes.forEach(function (checkbox) {
-                    if (checkbox.id !== clickedCheckboxId) {
-                        checkbox.checked = false;
-                    }
-                });
-            }
+        function importContent(){
+            document.getElementById('content').value = editor.getMarkdown();
         }
-    </script>
 
+        const editor = new Editor({
+            el: document.querySelector('#editor'),
+            height: '600px',
+            initialEditType: 'markdown',
+            previewStyle: 'vertical'
+        });
+    </script>
 
 </div>
 </html>
