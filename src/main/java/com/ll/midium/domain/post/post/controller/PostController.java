@@ -57,10 +57,22 @@ public class PostController {
     @GetMapping("/post/{id}")
     public String detailPost(@PathVariable("id") Long id, Model model, Principal principal) {
         Post findPost = postService.findById(id);
-        SiteUser user = userService.findByUsername(principal.getName());
-        if(findPost.isPaid() && user.isPaid() == false){
-            findPost.setContent("이 글은 유료멤버십 전용 입니다.");
+        String name = "";
+        SiteUser user;
+
+        if (principal == null) {
+            if (findPost.isPaid()) {
+                findPost.setContent("이 글은 유료멤버십 전용 입니다.");
+            }
+        }else{
+            user = userService.findByUsername(principal.getName());
+            if(findPost.isPaid()){
+                if (!user.isPaid()) {
+                    findPost.setContent("이 글은 유료멤버십 전용 입니다.");
+                }
+            }
         }
+
         model.addAttribute("post", findPost);
         CommentCreateForm commentCreateForm = new CommentCreateForm();
         model.addAttribute("commentCreateForm", commentCreateForm);
