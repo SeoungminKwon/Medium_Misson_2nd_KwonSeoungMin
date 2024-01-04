@@ -66,7 +66,13 @@ public class CommentController {
 
         findComment.setContent(commentForm.getContent());
         commentService.save(findComment);
-        return "redirect:/post" + postId;
+        return "redirect:/post/" + postId;
+    }
+
+    @GetMapping("/{postId}/comment/{commentId}/delete")
+    public String deleteComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, Model model, Principal principal) {
+        commentService.delete(commentId);
+        return "redirect:/post/" + postId;
     }
 
 }

@@ -85,7 +85,7 @@ public class PostController {
 
     @GetMapping("/{id}/modify")
     @PreAuthorize("isAuthenticated()")
-    public String modifyPost(@PathVariable("id") Long id, Model model, Principal principal){
+    public String modifyPost(@PathVariable("id") Long id, Model model, Principal principal, PostCreateForm postCreateForm){
         Post findPost = postService.findById(id);
         if(!findPost.getAuthor().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이없습니다.");

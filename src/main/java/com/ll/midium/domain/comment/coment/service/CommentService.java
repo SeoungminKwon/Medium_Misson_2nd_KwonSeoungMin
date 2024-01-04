@@ -25,4 +25,9 @@ public class CommentService {
         }
         return oc.get();
     }
+
+    public void delete(Long commentId) {
+        Comment findComment = findById(commentId);
+        commentRepository.delete(findComment);
+    }
 }
