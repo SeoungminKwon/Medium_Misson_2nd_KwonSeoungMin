@@ -9,19 +9,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
+@RequestMapping("/member")
 @Controller
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/member/join")
+    @GetMapping("/join")
     public String signup(UserCreateForm userCreateForm) {
         return "domain/user/user/signup_form";
     }
 
-    @PostMapping("/member/join")
+    @PostMapping("/join")
     public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "domain/user/user/signup_form";
@@ -46,7 +48,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     private String login() {
         return "domain/user/user/login_form";
     }

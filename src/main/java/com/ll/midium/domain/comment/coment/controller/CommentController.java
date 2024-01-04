@@ -16,18 +16,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
-@Controller
 @RequiredArgsConstructor
+@RequestMapping("/post")
+@Controller
 public class CommentController {
 
     private final CommentService commentService;
     private final PostService postService;
 
-    @PostMapping("/post/{id}/comment/write")
+    @PostMapping("/{id}/comment/write")
     public String writeComment(@PathVariable("id") Long id, @Valid CommentCreateForm commentCreateForm, BindingResult bindingResult, Principal principal) {
         Post findPost = postService.findById(id);
         if (bindingResult.hasErrors()) {
@@ -42,14 +44,8 @@ public class CommentController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/post/{postId}/comment/{commentId}/modify")
+    @GetMapping("/{postId}/comment/{commentId}/modify")
     public String modifyComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, Model model, Principal principal) {
-//        Post findPost = postService.findById(id);
-//        if(!findPost.getAuthor().equals(principal.getName())){
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이없습니다.");
-//        }
-//        model.addAttribute("post", findPost);
-//        return "domain/post/post/modify_form";
 
         Comment findComment = commentService.findById(commentId);
         if (!findComment.getAuthor().equals(principal.getName())) {
@@ -61,7 +57,7 @@ public class CommentController {
         return "domain/comment/comment/comment_modify_form";
     }
 
-    @PostMapping("/post/{postId}/comment/{commentId}/modify")
+    @PostMapping("/{postId}/comment/{commentId}/modify")
     public String modifyComment(@PathVariable("postId") Long postId, @PathVariable("commentId") Long commentId, CommentForm commentForm, Principal principal) {
         Comment findComment = commentService.findById(commentId);
         if (!findComment.getAuthor().equals(principal.getName())) {

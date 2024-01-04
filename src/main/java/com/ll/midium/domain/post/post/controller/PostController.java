@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -25,25 +26,26 @@ import java.util.List;
 import java.util.Set;
 
 @RequiredArgsConstructor
+@RequestMapping("/post")
 @Controller
 public class PostController {
 
     private final PostService postService;
     private final UserService userService;
 
-    @GetMapping("/post/list")
+    @GetMapping("/list")
     public String showList(Model model) {
         model.addAttribute("allPost", postService.getAllPost());
         return "domain/post/post/listpage";
     }
 
-    @GetMapping("/post/write")
+    @GetMapping("/write")
     @PreAuthorize("isAuthenticated()")
     public String postWrite(PostCreateForm postCreateForm) {
         return "domain/post/post/write_form";
     }
 
-    @PostMapping("/post/write")
+    @PostMapping("/write")
     public String postWrite(@Valid PostCreateForm postCreateForm, BindingResult bindingResult, Principal principal) {
 
         String name = principal.getName();
@@ -54,7 +56,7 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("/{id}")
     public String detailPost(@PathVariable("id") Long id, Model model, Principal principal) {
         Post findPost = postService.findById(id);
         String name = "";
@@ -81,7 +83,7 @@ public class PostController {
         return "domain/post/post/detailPost";
     }
 
-    @GetMapping("/post/{id}/modify")
+    @GetMapping("/{id}/modify")
     @PreAuthorize("isAuthenticated()")
     public String modifyPost(@PathVariable("id") Long id, Model model, Principal principal){
         Post findPost = postService.findById(id);
@@ -92,7 +94,7 @@ public class PostController {
         return "domain/post/post/modify_form";
     }
 
-    @PostMapping("/post/{id}/modify")
+    @PostMapping("/{id}/modify")
     public String modifyPost(@Valid PostCreateForm postCreateForm, BindingResult bindingResult, @PathVariable("id") Long id){
         if(bindingResult.hasErrors()){
             return "/post/"+id+"/modify";
@@ -101,7 +103,7 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-    @GetMapping("/post/{id}/delete")
+    @GetMapping("/{id}/delete")
     @PreAuthorize("isAuthenticated()")
     public String deletePost(@PathVariable("id") Long id, Principal principal){
         Post findPost = postService.findById(id);
@@ -113,14 +115,9 @@ public class PostController {
         return "redirect:/post/list";
     }
 
-    @GetMapping("/b/{username}")
-    public String userPost(Model model, @PathVariable("username") String username) {
-        List< Post > findAuthorPosts = postService.findByAuthor(username);
-        model.addAttribute("allPost", findAuthorPosts);
-        return "domain/post/post/user_post_page";
-    }
 
-    @GetMapping("/post/myList")
+
+    @GetMapping("/myList")
     public String myPost(Principal principal, Model model) {
         String name = principal.getName();
         List< Post > myPostList = postService.findByAuthor(principal.getName());
@@ -128,7 +125,7 @@ public class PostController {
         return "domain/post/post/user_post_page";
     }
 
-    @PostMapping("/post/{id}/increaseHit")
+    @PostMapping("/{id}/increaseHit")
     public String increaseHit(@PathVariable("id") Long id , HttpSession session) {
         Set<Long>viewedPosts = (Set<Long>)session.getAttribute("viewedPosts");
         if (viewedPosts == null) {
